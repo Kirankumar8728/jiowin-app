@@ -1,15 +1,15 @@
 {
-  "name": "JIOWIN",
-  "short_name": "JIOWIN",
-  "start_url": "index.html",
+  "short_name": "JioWin",
+  "name": "JioWin Application",
+  "icons": [
+    {
+      "src": "logo.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/launcher.html",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#01875f",
-  "icons": [
-  {
-      "src": "icon.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
-  ]
+  "theme_color": "#01875f"
 }
