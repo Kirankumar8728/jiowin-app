@@ -1,90 +1,270 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Install App</title>
-    <!-- Links to your PWA Manifest -->
-    <link rel="manifest" href="manifest.json">
-    <style>
-        /* Play Store Style CSS */
-        body { font-family: Roboto, Arial, sans-serif; margin: 0; padding: 20px; text-align: center; background-color: #f8f9fa; }
-        .app-card { background: white; border-radius: 12px; padding: 30px 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); max-width: 400px; margin: 40px auto; }
-        .app-icon { width: 120px; height: 120px; border-radius: 24px; object-fit: cover; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        .app-title { font-size: 26px; font-weight: bold; margin: 10px 0; color: #202124; }
-        .app-developer { color: #01875f; font-size: 15px; margin-bottom: 25px; font-weight: 500;}
-        .btn { display: inline-block; background-color: #01875f; color: white; border: none; border-radius: 8px; padding: 14px 24px; font-size: 16px; font-weight: bold; cursor: pointer; width: 100%; box-sizing: border-box; margin-bottom: 12px; text-decoration: none;}
-        .btn:hover { background-color: #016b4b; }
-        #install-button { display: none; /* Hidden until the browser says the PWA is ready to install */ }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JioWin</title>
+<style>
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 16px;
+    background-color: #fff;
+    color: #202124;
+  }
+  .header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .app-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 16px;
+    margin-right: 16px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  }
+  .app-info h1 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 500;
+  }
+  .app-info p {
+    margin: 4px 0 0;
+    color: #01875f;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .app-info .sub-text {
+    color: #5f6368;
+    font-size: 12px;
+    margin-top: 4px;
+  }
+  .stats {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: #5f6368;
+    text-align: center;
+  }
+  .stats div {
+    flex: 1;
+    border-right: 1px solid #e8eaed;
+  }
+  .stats div:last-child {
+    border-right: none;
+  }
+  .install-btn {
+    width: 100%;
+    background-color: #01875f;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: background-color 0.2s;
+  }
+  .install-btn:active {
+    background-color: #016b4a;
+  }
+  #progressContainer {
+    display: none;
+    width: 100%;
+    background: #e8eaed;
+    border-radius: 8px;
+    height: 24px;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  #progressBar {
+    width: 0%;
+    height: 100%;
+    background: #01875f;
+    text-align: center;
+    color: white;
+    line-height: 24px;
+    font-size: 12px;
+    font-weight: bold;
+    transition: width 0.1s linear;
+  }
+  .screenshots {
+    display: flex;
+    overflow-x: auto;
+    gap: 12px;
+    padding-bottom: 10px;
+    scrollbar-width: none;
+  }
+  .screenshots::-webkit-scrollbar {
+    display: none;
+  }
+  .screenshots img {
+    height: 250px;
+    border-radius: 12px;
+    object-fit: cover;
+  }
+  .about-section {
+    margin-top: 20px;
+  }
+  .about-section h2 {
+    font-size: 18px;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+  }
+  .about-section p {
+    font-size: 14px;
+    color: #5f6368;
+    line-height: 1.5;
+  }
+</style>
 </head>
 <body>
 
-<div class="app-card">
-    <!-- App Icon -->
-    <img id="display-icon" src="icon-512x512.png" alt="App Icon" class="app-icon">
+  <div class="header">
+    <img id="uiAppIcon" src="" class="app-icon" alt="App Icon">
+    <div class="app-info">
+      <h1>JioWin <span style="color: #1a73e8; font-size: 18px;">✔</span></h1>
+      <p>Jio Platforms Limited</p>
+      <div class="sub-text">Contains ads • In-app purchases</div>
+    </div>
+  </div>
 
-    <!-- App Name -->
-    <div id="display-name" class="app-title">App Name Here</div>
-    <div class="app-developer">Verified Developer</div>
+  <div class="stats">
+    <div><strong>4.7 ★</strong><br>Rating</div>
+    <div><strong>10M+</strong><br>Downloads</div>
+    <div><strong>18+</strong><br>Rated for 18+</div>
+  </div>
 
-    <!-- Install PWA Button -->
-    <button id="install-button" class="btn">Install</button>
+  <button id="actionBtn">Install</button>
+  
+  <div id="progressContainer">
+    <div id="progressBar">0%</div>
+  </div>
 
-    <!-- Affiliate Link Button -->
-    <a id="affiliate-button" href="#" class="btn" target="_blank">Play Now / Register</a>
-</div>
+  <div class="screenshots" id="uiScreenshots">
+    </div>
 
-<script>
+  <div class="about-section">
+    <h2>About this app <span>→</span></h2>
+    <p>Has playing in casinos become unbearable? There is a solution. Experience the ultimate thrill with JioWin. Play responsibly and win big with our secure and fast platform designed for seamless entertainment.</p>
+  </div>
+
+  <script type="module">
     // ==========================================
-    // 🛠️ EASY CONFIGURATION SECTION 🛠️
-    // Edit the text inside the quotes below to change your app details
+    // ⚙️ EASY EDIT CONFIGURATION SECTION
     // ==========================================
     const APP_CONFIG = {
-        appName: "JIOWIN",
-        // Your 1win affiliate link from your sources
-        affiliateLink: "https://one-vv5388.com/?open=register&p=7nvx", 
-        // The name of the image you upload to GitHub for the icon
-        iconImage: "icon-512x512.png" 
+      affiliateUrl: "https://one-vv5388.com/?open=register&p=7nvx", 
+      appIcon: "https://blogger.googleusercontent.com/img/a/AVvXsEhooaoJegcu_-GjXmCOmRNzqV2T2iVE5G3bIICFrdKxLtNaSjJ56MExnGUYJoFAQFQ-H4I-8sb6u-btv7pd6RYextoDMMw0ilZJCN7ReYv7dHL5eoambptGPsCVnBL--i2vd5SBZE_0PFgTharaeeL9_M5Lc1G4CEfXedZaSCFOQfqjwXnRoaWQCnYTB8wv", 
+      screenshots: [
+        "https://blogger.googleusercontent.com/img/a/AVvXsEi2jqNHlFhAAaiXnTBC878F6sZYgR0pzupsX3DnEk0ttb3YFktQPmlbNlpYx-QKORrAjv9u2qWrxicsEZL7rHSaitYRVoxx6oT4ve8mnHdjoMnNIY4xRblyQIyTjNQui6Gx7Y9C3m86aq76TdHf4bYTVQjzaQlInV87VRzg4tSdkj302C_NadMOoArd3fsX", 
+        "https://blogger.googleusercontent.com/img/a/AVvXsEi-RT--oG-BvD71dvlFwulGfdTjBjSR_xYtqt3Y3ymIJk3CIXzKXj05Sq-KR_7_ZBQCmea5_DSBEt2reASychCCOS0z5xgjbshF4-VSfllg4xjyW9ysLvykjuWxQwaC7XGQTN2V3Ru99eKazDVIVfinOoXgadBJolmgW5gqoRFDRV4z189c4eI-uhyYbtiX", 
+        "https://blogger.googleusercontent.com/img/a/AVvXsEiYydfDdYguixk-Ri9RTJgXdXEQ_dIF7fiU2LKC_4_-j6rBF5USOrFnF0es5HgD3iQHkPVPlpBcLnQSp509yw90uBuvPcUpnvu8KBb-b45VAKZ--v1v0kZUgpQ8L-CrcgYiujx9biqk697VmMMpTbZ4QRFXRZ1kYD4G1In5nSaSU9KEtVwVbBR6sjPJFeu0", 
+        "https://blogger.googleusercontent.com/img/a/AVvXsEj9aQ3_DAbBzDs1ImGw8lNhkWFB4BUVMUfgBj1YB5OsTaszQwQd3O48r6qJJAGvAI6A2Z_r8vQ5-Vjvy66Nx6Qu1bm5uSEeBgXe2fC3wT8PBKrUkrKV_8kZUjb3dXH3cF-0MR5XdynnEwMJlqe-2GPIKqJeb45YlJqu8VH1iPdLflsaetD3W-4ligZhJNH3"  
+      ]
     };
 
-    // --- DO NOT EDIT BELOW THIS LINE --- //
+    // --- 1. Populate UI with Config Data ---
+    document.getElementById('uiAppIcon').src = APP_CONFIG.appIcon;
+    
+    const screenshotsContainer = document.getElementById('uiScreenshots');
+    APP_CONFIG.screenshots.forEach(url => {
+      const img = document.createElement('img');
+      img.src = url;
+      img.alt = "App Screenshot";
+      screenshotsContainer.appendChild(img);
+    });
 
-    // Apply your configurations to the page
-    document.getElementById('display-name').innerText = APP_CONFIG.appName;
-    document.getElementById('display-icon').src = APP_CONFIG.iconImage;
-    document.getElementById('affiliate-button').href = APP_CONFIG.affiliateLink;
-    document.title = APP_CONFIG.appName;
+    // --- 2. Button & Progress Logic ---
+    let deferredPrompt; 
+    const actionBtn = document.getElementById('actionBtn');
+    const progressContainer = document.getElementById('progressContainer');
+    const progressBar = document.getElementById('progressBar');
 
-    // PWA INSTALL LOGIC
-    let deferredPrompt;
-    const installButton = document.getElementById('install-button');
-
+    // Intercept native prompt to prevent default browser UI popping up early
     window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-        deferredPrompt = e;
-        installButton.style.display = 'block'; // Reveal install button
+      e.preventDefault();
+      deferredPrompt = e;
     });
 
-    installButton.addEventListener('click', async () => {
-        if (deferredPrompt) {
-            deferredPrompt.prompt();
-            const { outcome } = await deferredPrompt.userChoice;
-            console.log(`User ${outcome} the install prompt`);
-            deferredPrompt = null;
-            installButton.style.display = 'none'; // Hide button after install
+    actionBtn.addEventListener('click', async () => {
+      // If the app is "installed", clicking Open goes to your affiliate link
+      if (actionBtn.innerText === 'Open') {
+        window.location.href = APP_CONFIG.affiliateUrl;
+        return;
+      }
+
+      // Hide Install button and show progress bar
+      actionBtn.style.display = 'none';
+      simulateProgress();
+      requestPushPermission(); // Ask for push notifications while installing
+      
+      // Attempt to fire real PWA install prompt in the background if available
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+          deferredPrompt = null;
         }
+      }
     });
 
-    // Service Worker Registration (Mandatory for PWA)
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('sw.js').then(reg => {
-                console.log("Service Worker Registered", reg);
-            });
-        });
-    }
-</script>
+    function simulateProgress() {
+      progressContainer.style.display = 'block';
+      let width = 0;
+      
+      const interval = setInterval(() => {
+        if (width >= 100) {
+          clearInterval(interval);
+          progressBar.innerText = "Installing...";
+          
+          setTimeout(() => {
+            progressContainer.style.display = 'none';
+            actionBtn.style.display = 'block';
+            actionBtn.innerText = 'Open'; 
+          }, 1500);
 
+        } else {
+          width += Math.floor(Math.random() * 5) + 1; 
+          if(width > 100) width = 100;
+          
+          progressBar.style.width = width + '%';
+          progressBar.innerText = width + '%';
+        }
+      }, 70); 
+    }
+
+    // --- 3. Firebase SDK Setup ---
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging.js";
+
+    // ⚠️ REPLACE WITH YOUR ACTUAL FIREBASE CONFIG FROM FIREBASE CONSOLE
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT.firebaseapp.com",
+      projectId: "YOUR_PROJECT",
+      storageBucket: "YOUR_PROJECT.appspot.com",
+      messagingSenderId: "YOUR_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const messaging = getMessaging(app);
+
+    function requestPushPermission() {
+      Notification.requestPermission().then((permission) => {
+        if (permission === 'granted') {
+          console.log('Notification permission granted.');
+          // getToken(messaging, { vapidKey: 'YOUR_VAPID_KEY' }).then((currentToken) => {
+          //   if (currentToken) { console.log('Token:', currentToken); }
+          // });
+        }
+      });
+    }
+  </script>
 </body>
 </html>
