@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Install App</title>
+    <!-- Links to your PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <style>
+        /* Play Store Style CSS */
+        body { font-family: Roboto, Arial, sans-serif; margin: 0; padding: 20px; text-align: center; background-color: #f8f9fa; }
+        .app-card { background: white; border-radius: 12px; padding: 30px 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); max-width: 400px; margin: 40px auto; }
+        .app-icon { width: 120px; height: 120px; border-radius: 24px; object-fit: cover; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .app-title { font-size: 26px; font-weight: bold; margin: 10px 0; color: #202124; }
+        .app-developer { color: #01875f; font-size: 15px; margin-bottom: 25px; font-weight: 500;}
+        .btn { display: inline-block; background-color: #01875f; color: white; border: none; border-radius: 8px; padding: 14px 24px; font-size: 16px; font-weight: bold; cursor: pointer; width: 100%; box-sizing: border-box; margin-bottom: 12px; text-decoration: none;}
+        .btn:hover { background-color: #016b4b; }
+        #install-button { display: none; /* Hidden until the browser says the PWA is ready to install */ }
+    </style>
+</head>
+<body>
+
+<div class="app-card">
+    <!-- App Icon -->
+    <img id="display-icon" src="icon-512x512.png" alt="App Icon" class="app-icon">
+
+    <!-- App Name -->
+    <div id="display-name" class="app-title">App Name Here</div>
+    <div class="app-developer">Verified Developer</div>
+
+    <!-- Install PWA Button -->
+    <button id="install-button" class="btn">Install</button>
+
+    <!-- Affiliate Link Button -->
+    <a id="affiliate-button" href="#" class="btn" target="_blank">Play Now / Register</a>
+</div>
+
+<script>
+    // ==========================================
+    // 🛠️ EASY CONFIGURATION SECTION 🛠️
+    // Edit the text inside the quotes below to change your app details
+    // ==========================================
+    const APP_CONFIG = {
+        appName: "JIOWIN",
+        // Your 1win affiliate link from your sources
+        affiliateLink: "https://one-vv5388.com/?open=register&p=7nvx", 
+        // The name of the image you upload to GitHub for the icon
+        iconImage: "icon-512x512.png" 
+    };
+
+    // --- DO NOT EDIT BELOW THIS LINE --- //
+
+    // Apply your configurations to the page
+    document.getElementById('display-name').innerText = APP_CONFIG.appName;
+    document.getElementById('display-icon').src = APP_CONFIG.iconImage;
+    document.getElementById('affiliate-button').href = APP_CONFIG.affiliateLink;
+    document.title = APP_CONFIG.appName;
+
+    // PWA INSTALL LOGIC
+    let deferredPrompt;
+    const installButton = document.getElementById('install-button');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        installButton.style.display = 'block'; // Reveal install button
+    });
+
+    installButton.addEventListener('click', async () => {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            console.log(`User ${outcome} the install prompt`);
+            deferredPrompt = null;
+            installButton.style.display = 'none'; // Hide button after install
+        }
+    });
+
+    // Service Worker Registration (Mandatory for PWA)
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('sw.js').then(reg => {
+                console.log("Service Worker Registered", reg);
+            });
+        });
+    }
+</script>
+
+</body>
+</html>
