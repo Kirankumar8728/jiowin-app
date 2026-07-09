@@ -8,16 +8,19 @@
         body { background-color: #000; color: #fff; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: sans-serif; }
     </style>
     <script>
-        // The master affiliate link loaded exclusively inside the installed app
         const baseTarget = "https://one-vv5388.com/?open=register&p=7nvx";
         const savedParams = localStorage.getItem('campaign_params') || "";
         const destination = savedParams ? `${baseTarget}&${savedParams}` : baseTarget;
         
-        // window.location.replace prevents the browser "back" button from breaking the funnel
-        window.location.replace(destination);
+        // Wait 300ms to ensure the TrafficStars pixel fires successfully, then redirect
+        setTimeout(() => {
+            window.location.replace(destination);
+        }, 300);
     </script>
 </head>
 <body>
     <div>Establishing Secure Connection...</div>
+
+    <img src="https://tsyndicate.com/api/v2/retargeting/set/71b4c3ac-6ef1-4576-b02a-5a8a6b4f6c51" height="1" width="1" style="display:none;" alt="">
 </body>
 </html>
