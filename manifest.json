@@ -3,9 +3,10 @@
   "name": "JioWin Application",
   "icons": [
     {
-      "src": "logo.png",
+      "src": "https://blogger.googleusercontent.com/img/a/AVvXsEhooaoJegcu_-GjXmCOmRNzqV2T2iVE5G3bIICFrdKxLtNaSjJ56MExnGUYJoFAQFQ-H4I-8sb6u-btv7pd6RYextoDMMw0ilZJCN7ReYv7dHL5eoambptGPsCVnBL--i2vd5SBZE_0PFgTharaeeL9_M5Lc1G4CEfXedZaSCFOQfqjwXnRoaWQCnYTB8wv",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "512x512",
+      "purpose": "any maskable"
     }
   ],
   "start_url": "/launcher.html",
