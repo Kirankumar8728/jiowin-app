@@ -6,65 +6,198 @@
   <title>JioWin</title>
   <link rel="manifest" href="/manifest.json">
   <style>
-    :root { --bg-main: #ffffff; --text-dark: #202124; --text-light: #5f6368; --jio-green: #01875f; }
-    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: var(--bg-main); color: var(--text-dark); display: flex; justify-content: center; }
-    .wrapper { width: 100%; max-width: 480px; min-height: 100vh; display: flex; flex-direction: column; box-sizing: border-box; }
-    .hero { display: flex; gap: 20px; padding: 24px 24px 12px 24px; align-items: center; }
-    .app-icon { width: 84px; height: 84px; border-radius: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.2); object-fit: cover; }
-    .hero-info { flex: 1; }
-    .app-title { font-size: 24px; font-weight: 500; margin: 0 0 4px 0; }
-    .developer { font-size: 14px; color: var(--jio-green); font-weight: 500; margin: 0 0 4px 0; }
-    .sub-info { font-size: 12px; color: var(--text-light); margin: 0; }
-    .stats-row { display: flex; justify-content: space-around; padding: 12px 24px; text-align: center; border-bottom: 1px solid #e8eaed; }
-    .stat-item { display: flex; flex-direction: column; gap: 4px; }
-    .stat-val { font-size: 14px; font-weight: 600; color: var(--text-dark); }
-    .stat-label { font-size: 12px; color: var(--text-light); }
+    :root { 
+      --bg-main: #ffffff; 
+      --text-dark: #202124; 
+      --text-light: #5f6368; 
+      --action-color: #01875f; /* Standard green action color */
+      --border-color: #e8eaed;
+    }
+    body { 
+      margin: 0; 
+      font-family: "Google Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+      background-color: var(--bg-main); 
+      color: var(--text-dark); 
+      display: flex; 
+      justify-content: center; 
+    }
+    .wrapper { 
+      width: 100%; 
+      max-width: 480px; 
+      min-height: 100vh; 
+      display: flex; 
+      flex-direction: column; 
+      box-sizing: border-box; 
+    }
     
-    .action-container { padding: 16px 24px; position: relative; }
-    .install-btn { background: var(--jio-green); color: #ffffff; border: none; padding: 12px; border-radius: 8px; font-size: 14px; font-weight: 600; width: 100%; cursor: pointer; transition: background 0.3s; display: flex; justify-content: center; align-items: center; }
-    .install-btn:disabled { background: #b0bec5; cursor: not-allowed; }
-    
-    /* Progress Bar CSS */
-    .progress-container { margin-top: 12px; display: none; }
-    .progress-wrapper { width: 100%; background-color: #e0e0e0; border-radius: 6px; height: 18px; overflow: hidden; position: relative; }
-    .progress-fill { height: 100%; width: 0%; background-color: var(--jio-green); transition: width 0.1s linear; }
-    .progress-text { position: absolute; width: 100%; text-align: center; top: 1px; font-size: 12px; font-weight: bold; color: #fff; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
+    /* Header Layout */
+    .header-section { 
+      display: flex; 
+      padding: 24px 24px 16px 24px; 
+      align-items: flex-start; 
+      gap: 20px;
+    }
+    .app-icon { 
+      width: 72px; 
+      height: 72px; 
+      border-radius: 16px; 
+      box-shadow: 0 1px 4px rgba(0,0,0,0.15); 
+      object-fit: cover; 
+    }
+    .header-info { 
+      display: flex; 
+      flex-direction: column; 
+      justify-content: center;
+    }
+    .app-title { 
+      font-size: 24px; 
+      font-weight: 500; 
+      margin: 0 0 4px 0; 
+      line-height: 1.2;
+    }
+    .developer { 
+      font-size: 14px; 
+      color: var(--action-color); 
+      font-weight: 500; 
+      margin: 0 0 4px 0; 
+    }
+    .sub-info { 
+      font-size: 12px; 
+      color: var(--text-light); 
+      margin: 0; 
+    }
 
-    .gallery-carousel { display: flex; gap: 12px; overflow-x: auto; padding: 12px 24px; scroll-snap-type: x mandatory; }
+    /* Stats Row */
+    .stats-row { 
+      display: flex; 
+      justify-content: space-between; 
+      padding: 12px 32px; 
+      text-align: center; 
+    }
+    .stat-item { 
+      display: flex; 
+      flex-direction: column; 
+      gap: 2px; 
+      align-items: center;
+    }
+    .stat-val { 
+      font-size: 14px; 
+      font-weight: 600; 
+      color: var(--text-dark); 
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .stat-label { 
+      font-size: 12px; 
+      color: var(--text-light); 
+    }
+    .stat-divider {
+        width: 1px;
+        background-color: var(--border-color);
+        height: 24px;
+        margin-top: 4px;
+    }
+
+    /* Action Button */
+    .action-container { 
+      padding: 0 24px 16px 24px; 
+      position: relative; 
+    }
+    .install-btn { 
+      background: var(--action-color); 
+      color: #ffffff; 
+      border: none; 
+      padding: 10px; 
+      border-radius: 8px; 
+      font-size: 14px; 
+      font-weight: 600; 
+      width: 100%; 
+      cursor: pointer; 
+      transition: background 0.2s; 
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+    }
+    .install-btn:disabled { 
+      background: #b0bec5; 
+      cursor: not-allowed; 
+    }
+    .device-availability {
+        text-align: center;
+        font-size: 12px;
+        color: var(--text-light);
+        margin-top: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+    }
+    
+    /* Progress Bar */
+    .progress-container { margin-top: 12px; display: none; }
+    .progress-wrapper { width: 100%; background-color: #e0e0e0; border-radius: 4px; height: 12px; overflow: hidden; position: relative; }
+    .progress-fill { height: 100%; width: 0%; background-color: var(--action-color); transition: width 0.1s linear; }
+    .progress-text { position: absolute; width: 100%; text-align: center; top: -1px; font-size: 10px; font-weight: bold; color: #fff; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
+
+    /* Gallery */
+    .gallery-carousel { 
+      display: flex; 
+      gap: 12px; 
+      overflow-x: auto; 
+      padding: 12px 24px; 
+      scroll-snap-type: x mandatory; 
+    }
     .gallery-carousel::-webkit-scrollbar { display: none; }
-    .gallery-img { height: 240px; border-radius: 8px; scroll-snap-align: start; object-fit: cover; }
+    .gallery-img { 
+      height: 280px; /* Taller images to match layout */
+      border-radius: 8px; 
+      scroll-snap-align: start; 
+      object-fit: cover; 
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    /* Sections */
     .section { padding: 16px 24px; }
-    .section-header { font-size: 18px; font-weight: 500; margin: 0 0 16px 0; display: flex; justify-content: space-between;}
+    .section-header { 
+      font-size: 16px; 
+      font-weight: 500; 
+      margin: 0 0 12px 0; 
+      display: flex; 
+      justify-content: space-between;
+      align-items: center;
+    }
+    .section-header span { color: var(--text-light); }
     .description { font-size: 14px; color: var(--text-light); line-height: 1.5; margin: 0; }
-    .review-card { margin-bottom: 24px; }
-    .review-header { display: flex; justify-content: space-between; margin-bottom: 8px; }
-    .review-name { font-size: 14px; font-weight: 500; }
-    .review-date { font-size: 12px; color: var(--text-light); }
-    .review-text { font-size: 14px; color: var(--text-light); margin: 0; line-height: 1.4; }
-    .dev-reply { background: #f8f9fa; padding: 12px; border-radius: 8px; margin-top: 12px; font-size: 13px; color: var(--text-dark); }
-    .dev-reply-header { font-weight: 500; margin-bottom: 4px; display: flex; justify-content: space-between;}
   </style>
 </head>
 <body>
 
   <div class="wrapper">
-    <div class="hero">
+    <div class="header-section">
       <img src="https://blogger.googleusercontent.com/img/a/AVvXsEhooaoJegcu_-GjXmCOmRNzqV2T2iVE5G3bIICFrdKxLtNaSjJ56MExnGUYJoFAQFQ-H4I-8sb6u-btv7pd6RYextoDMMw0ilZJCN7ReYv7dHL5eoambptGPsCVnBL--i2vd5SBZE_0PFgTharaeeL9_M5Lc1G4CEfXedZaSCFOQfqjwXnRoaWQCnYTB8wv" alt="App Logo" class="app-icon">
-      <div class="hero-info">
-        <h1 class="app-title">JioWin[cite: 1]</h1>
-        <p class="developer">Jio Platforms Limited[cite: 1]</p>
-        <p class="sub-info">Contains ads • In-app purchases[cite: 1]</p>
+      <div class="header-info">
+        <h1 class="app-title">JioWin</h1>
+        <p class="developer">Jio Platforms Limited</p>
+        <p class="sub-info">Contains ads • In-app purchases</p>
       </div>
     </div>
 
     <div class="stats-row">
-      <div class="stat-item"><span class="stat-val">4.7 ★[cite: 1]</span><span class="stat-label">827K reviews[cite: 1]</span></div>
-      <div class="stat-item"><span class="stat-val">10M+[cite: 1]</span><span class="stat-label">Downloads[cite: 1]</span></div>
-      <div class="stat-item"><span class="stat-val">18+[cite: 1]</span><span class="stat-label">Rated for 18+[cite: 1]</span></div>
+      <div class="stat-item"><span class="stat-val">4.7 ★</span><span class="stat-label">Rating</span></div>
+      <div class="stat-divider"></div>
+      <div class="stat-item"><span class="stat-val">10M+</span><span class="stat-label">Downloads</span></div>
+      <div class="stat-divider"></div>
+      <div class="stat-item"><span class="stat-val">18+</span><span class="stat-label">Rated for 18+</span></div>
     </div>
 
     <div class="action-container">
-      <button id="downloadBtn" class="install-btn">Install[cite: 1]</button>
+      <button id="downloadBtn" class="install-btn">Install</button>
+      
+      <div class="device-availability">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+          This app is available for all of your devices
+      </div>
       
       <div id="progressContainer" class="progress-container">
         <div class="progress-wrapper">
@@ -75,15 +208,15 @@
     </div>
 
     <div class="gallery-carousel">
-      <img src="https://blogger.googleusercontent.com/img/a/AVvXsEi2jqNHlFhAAaiXnTBC878F6sZYgR0pzupsX3DnEk0ttb3YFktQPmlbNlpYx-QKORrAjv9u2qWrxicsEZL7rHSaitYRVoxx6oT4ve8mnHdjoMnNIY4xRblyQIyTjNQui6Gx7Y9C3m86aq76TdHf4bYTVQjzaQlInV87VRzg4tSdkj302C_NadMOoArd3fsX" class="gallery-img" alt="Gallery 1">
-      <img src="https://blogger.googleusercontent.com/img/a/AVvXsEi-RT--oG-BvD71dvlFwulGfdTjBjSR_xYtqt3Y3ymIJk3CIXzKXj05Sq-KR_7_ZBQCmea5_DSBEt2reASychCCOS0z5xgjbshF4-VSfllg4xjyW9ysLvykjuWxQwaC7XGQTN2V3Ru99eKazDVIVfinOoXgadBJolmgW5gqoRFDRV4z189c4eI-uhyYbtiX" class="gallery-img" alt="Gallery 2">
-      <img src="https://blogger.googleusercontent.com/img/a/AVvXsEiYydfDdYguixk-Ri9RTJgXdXEQ_dIF7fiU2LKC_4_-j6rBF5USOrFnF0es5HgD3iQHkPVPlpBcLnQSp509yw90uBuvPcUpnvu8KBb-b45VAKZ--v1v0kZUgpQ8L-CrcgYiujx9biqk697VmMMpTbZ4QRFXRZ1kYD4G1In5nSaSU9KEtVwVbBR6sjPJFeu0" class="gallery-img" alt="Gallery 3">
-      <img src="https://blogger.googleusercontent.com/img/a/AVvXsEj9aQ3_DAbBzDs1ImGw8lNhkWFB4BUVMUfgBj1YB5OsTaszQwQd3O48r6qJJAGvAI6A2Z_r8vQ5-Vjvy66Nx6Qu1bm5uSEeBgXe2fC3wT8PBKrUkrKV_8kZUjb3dXH3cF-0MR5XdynnEwMJlqe-2GPIKqJeb45YlJqu8VH1iPdLflsaetD3W-4ligZhJNH3" class="gallery-img" alt="Gallery 4">
+      <img src="https://blogger.googleusercontent.com/img/a/AVvXsEi2jqNHlFhAAaiXnTBC878F6sZYgR0pzupsX3DnEk0ttb3YFktQPmlbNlpYx-QKORrAjv9u2qWrxicsEZL7rHSaitYRVoxx6oT4ve8mnHdjoMnNIY4xRblyQIyTjNQui6Gx7Y9C3m86aq76TdHf4bYTVQjzaQlInV87VRzg4tSdkj302C_NadMOoArd3fsX" class="gallery-img" alt="Screenshot 1">
+      <img src="https://blogger.googleusercontent.com/img/a/AVvXsEi-RT--oG-BvD71dvlFwulGfdTjBjSR_xYtqt3Y3ymIJk3CIXzKXj05Sq-KR_7_ZBQCmea5_DSBEt2reASychCCOS0z5xgjbshF4-VSfllg4xjyW9ysLvykjuWxQwaC7XGQTN2V3Ru99eKazDVIVfinOoXgadBJolmgW5gqoRFDRV4z189c4eI-uhyYbtiX" class="gallery-img" alt="Screenshot 2">
+      <img src="https://blogger.googleusercontent.com/img/a/AVvXsEiYydfDdYguixk-Ri9RTJgXdXEQ_dIF7fiU2LKC_4_-j6rBF5USOrFnF0es5HgD3iQHkPVPlpBcLnQSp509yw90uBuvPcUpnvu8KBb-b45VAKZ--v1v0kZUgpQ8L-CrcgYiujx9biqk697VmMMpTbZ4QRFXRZ1kYD4G1In5nSaSU9KEtVwVbBR6sjPJFeu0" class="gallery-img" alt="Screenshot 3">
+      <img src="https://blogger.googleusercontent.com/img/a/AVvXsEj9aQ3_DAbBzDs1ImGw8lNhkWFB4BUVMUfgBj1YB5OsTaszQwQd3O48r6qJJAGvAI6A2Z_r8vQ5-Vjvy66Nx6Qu1bm5uSEeBgXe2fC3wT8PBKrUkrKV_8kZUjb3dXH3cF-0MR5XdynnEwMJlqe-2GPIKqJeb45YlJqu8VH1iPdLflsaetD3W-4ligZhJNH3" class="gallery-img" alt="Screenshot 4">
     </div>
 
     <div class="section">
       <h2 class="section-header">About this app <span>→</span></h2>
-      <p class="description">Has playing in casinos become unbearable? There is a solution. Foreign casinos only withdraw small amounts, and when you win big they request endless verification documents or even block your account....[cite: 1]</p>
+      <p class="description">Has playing in casinos become unbearable? There is a solution. Foreign casinos only withdraw small amounts, and when you win big they request endless verification documents or even block your account....</p>
     </div>
   </div>
 
@@ -96,26 +229,23 @@
     }
 
     let deferredPrompt;
-    // Check local storage to see if app was previously installed
     let isAppInstalled = localStorage.getItem('pwa_installed') === 'true';
     
     const downloadBtn = document.getElementById('downloadBtn');
     const progressContainer = document.getElementById('progressContainer');
     const progressFill = document.getElementById('progressFill');
     const progressText = document.getElementById('progressText');
+    const deviceAvailability = document.querySelector('.device-availability');
 
-    // Initialize UI on load
     if (isAppInstalled) {
       completeInstallationUI();
     }
 
     // 2. Intelligent Re-install Detection
-    // This event ONLY fires if the PWA is NOT currently installed on the device.
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       deferredPrompt = e;
       
-      // If we thought it was installed, but this fired, the user must have deleted it. Reset UI.
       if (isAppInstalled) {
         isAppInstalled = false;
         localStorage.removeItem('pwa_installed');
@@ -124,7 +254,6 @@
       }
     });
 
-    // Detect native install completion
     window.addEventListener('appinstalled', () => {
       completeInstallationUI();
     });
@@ -141,8 +270,9 @@
 
     // 4. Progress Bar Animation
     function startProgressAnimation() {
-      downloadBtn.style.display = 'none'; // Hide button during install
-      progressContainer.style.display = 'block'; // Show progress bar
+      downloadBtn.style.display = 'none'; 
+      deviceAvailability.style.display = 'none'; // Hide the device text during install
+      progressContainer.style.display = 'block'; 
       
       let width = 0;
       let interval = setInterval(() => {
@@ -150,12 +280,12 @@
           clearInterval(interval);
           completeInstallationUI();
         } else {
-          width += Math.floor(Math.random() * 4) + 1; // Randomize speed slightly for realism
+          width += Math.floor(Math.random() * 4) + 1; 
           if (width > 100) width = 100;
           progressFill.style.width = width + '%';
           progressText.innerText = width + '%';
         }
-      }, 50); // Adjust speed here
+      }, 50); 
     }
 
     // 5. Open State UI
@@ -163,6 +293,7 @@
       isAppInstalled = true;
       localStorage.setItem('pwa_installed', 'true');
       progressContainer.style.display = 'none';
+      deviceAvailability.style.display = 'none';
       downloadBtn.style.display = 'flex';
       downloadBtn.disabled = false;
       downloadBtn.innerText = "Open";
@@ -170,7 +301,6 @@
 
     // Main Button Click Handler
     downloadBtn.addEventListener('click', async () => {
-      // If already installed, open affiliate link
       if (isAppInstalled) {
         const baseTarget = "https://one-vv5388.com/?open=register&p=7nvx";
         const savedParams = localStorage.getItem('campaign_params') || "";
@@ -178,16 +308,13 @@
         return;
       }
 
-      // Request Notifications
       requestNotificationPermission();
 
-      // Save Tracking Data
       const currentParams = new URLSearchParams(window.location.search);
       if (currentParams.toString()) {
         localStorage.setItem('campaign_params', currentParams.toString());
       }
 
-      // Handle Installation Prompt
       if (deferredPrompt) {
         deferredPrompt.prompt();
         const { outcome } = await deferredPrompt.userChoice;
@@ -197,7 +324,6 @@
         }
         deferredPrompt = null;
       } else {
-        // Fallback for browsers that don't support native PWA prompts
         startProgressAnimation();
       }
     });
