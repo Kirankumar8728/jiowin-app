@@ -21,12 +21,14 @@
     .stat-label { font-size: 12px; color: var(--text-light); }
     
     .action-container { padding: 16px 24px; position: relative; }
-    .install-btn { background: var(--jio-green); color: #ffffff; border: none; padding: 12px; border-radius: 8px; font-size: 14px; font-weight: 600; width: 100%; cursor: pointer; transition: background 0.3s; }
+    .install-btn { background: var(--jio-green); color: #ffffff; border: none; padding: 12px; border-radius: 8px; font-size: 14px; font-weight: 600; width: 100%; cursor: pointer; transition: background 0.3s; display: flex; justify-content: center; align-items: center; }
     .install-btn:disabled { background: #b0bec5; cursor: not-allowed; }
     
     /* Progress Bar CSS */
-    .progress-wrapper { width: 100%; background-color: #e0e0e0; border-radius: 4px; margin-top: 12px; height: 6px; overflow: hidden; display: none; }
+    .progress-container { margin-top: 12px; display: none; }
+    .progress-wrapper { width: 100%; background-color: #e0e0e0; border-radius: 6px; height: 18px; overflow: hidden; position: relative; }
     .progress-fill { height: 100%; width: 0%; background-color: var(--jio-green); transition: width 0.1s linear; }
+    .progress-text { position: absolute; width: 100%; text-align: center; top: 1px; font-size: 12px; font-weight: bold; color: #fff; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
 
     .gallery-carousel { display: flex; gap: 12px; overflow-x: auto; padding: 12px 24px; scroll-snap-type: x mandatory; }
     .gallery-carousel::-webkit-scrollbar { display: none; }
@@ -47,32 +49,32 @@
 
   <div class="wrapper">
     <div class="hero">
-      <!-- Image loaded dynamically from live source -->
       <img src="https://blogger.googleusercontent.com/img/a/AVvXsEhooaoJegcu_-GjXmCOmRNzqV2T2iVE5G3bIICFrdKxLtNaSjJ56MExnGUYJoFAQFQ-H4I-8sb6u-btv7pd6RYextoDMMw0ilZJCN7ReYv7dHL5eoambptGPsCVnBL--i2vd5SBZE_0PFgTharaeeL9_M5Lc1G4CEfXedZaSCFOQfqjwXnRoaWQCnYTB8wv" alt="App Logo" class="app-icon">
       <div class="hero-info">
-        <h1 class="app-title">JioWin</h1>
-        <p class="developer">Jiowin Limited</p>
-        <p class="sub-info">Contains ads • In-app purchases</p>
+        <h1 class="app-title">JioWin[cite: 1]</h1>
+        <p class="developer">Jio Platforms Limited[cite: 1]</p>
+        <p class="sub-info">Contains ads • In-app purchases[cite: 1]</p>
       </div>
     </div>
 
     <div class="stats-row">
-      <div class="stat-item"><span class="stat-val">4.7 ★</span><span class="stat-label">827K reviews</span></div>
-      <div class="stat-item"><span class="stat-val">10M+</span><span class="stat-label">Downloads</span></div>
-      <div class="stat-item"><span class="stat-val">18+</span><span class="stat-label">Rated for 18+</span></div>
+      <div class="stat-item"><span class="stat-val">4.7 ★[cite: 1]</span><span class="stat-label">827K reviews[cite: 1]</span></div>
+      <div class="stat-item"><span class="stat-val">10M+[cite: 1]</span><span class="stat-label">Downloads[cite: 1]</span></div>
+      <div class="stat-item"><span class="stat-val">18+[cite: 1]</span><span class="stat-label">Rated for 18+[cite: 1]</span></div>
     </div>
 
     <div class="action-container">
-      <button id="downloadBtn" class="install-btn">Install</button>
+      <button id="downloadBtn" class="install-btn">Install[cite: 1]</button>
       
-      <!-- Progress Bar Container -->
-      <div id="progressWrapper" class="progress-wrapper">
-        <div id="progressFill" class="progress-fill"></div>
+      <div id="progressContainer" class="progress-container">
+        <div class="progress-wrapper">
+          <div id="progressFill" class="progress-fill"></div>
+          <div id="progressText" class="progress-text">0%</div>
+        </div>
       </div>
     </div>
 
     <div class="gallery-carousel">
-      <!-- Live URLs for gallery sliding images -->
       <img src="https://blogger.googleusercontent.com/img/a/AVvXsEi2jqNHlFhAAaiXnTBC878F6sZYgR0pzupsX3DnEk0ttb3YFktQPmlbNlpYx-QKORrAjv9u2qWrxicsEZL7rHSaitYRVoxx6oT4ve8mnHdjoMnNIY4xRblyQIyTjNQui6Gx7Y9C3m86aq76TdHf4bYTVQjzaQlInV87VRzg4tSdkj302C_NadMOoArd3fsX" class="gallery-img" alt="Gallery 1">
       <img src="https://blogger.googleusercontent.com/img/a/AVvXsEi-RT--oG-BvD71dvlFwulGfdTjBjSR_xYtqt3Y3ymIJk3CIXzKXj05Sq-KR_7_ZBQCmea5_DSBEt2reASychCCOS0z5xgjbshF4-VSfllg4xjyW9ysLvykjuWxQwaC7XGQTN2V3Ru99eKazDVIVfinOoXgadBJolmgW5gqoRFDRV4z189c4eI-uhyYbtiX" class="gallery-img" alt="Gallery 2">
       <img src="https://blogger.googleusercontent.com/img/a/AVvXsEiYydfDdYguixk-Ri9RTJgXdXEQ_dIF7fiU2LKC_4_-j6rBF5USOrFnF0es5HgD3iQHkPVPlpBcLnQSp509yw90uBuvPcUpnvu8KBb-b45VAKZ--v1v0kZUgpQ8L-CrcgYiujx9biqk697VmMMpTbZ4QRFXRZ1kYD4G1In5nSaSU9KEtVwVbBR6sjPJFeu0" class="gallery-img" alt="Gallery 3">
@@ -81,60 +83,66 @@
 
     <div class="section">
       <h2 class="section-header">About this app <span>→</span></h2>
-      <p class="description">Has playing in casinos become unbearable? There is a solution. Foreign casinos only withdraw small amounts, and when you win big they request endless verification documents or even block your account....</p>
-    </div>
-
-    <div class="section">
-      <h2 class="section-header">Rating and reviews <span>→</span></h2>
-      <div class="review-card">
-        <div class="review-header"><span class="review-name">Maram</span><span class="review-date">6 July 2026</span></div>
-        <p class="review-text">Do you have Teen Patti?</p>
-        <div class="dev-reply">
-          <div class="dev-reply-header"><span>Jio Platforms Limited</span></div>
-          Good day! Yes, you can find it in the live games section!
-        </div>
-      </div>
+      <p class="description">Has playing in casinos become unbearable? There is a solution. Foreign casinos only withdraw small amounts, and when you win big they request endless verification documents or even block your account....[cite: 1]</p>
     </div>
   </div>
 
   <script>
+    // 1. Service Worker Registration
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/sw.js').then(reg => {
-        console.log('Service Worker Registered');
+        console.log('Service Worker Registered Successfully.');
       });
     }
 
     let deferredPrompt;
-    let isAppInstalled = false;
+    // Check local storage to see if app was previously installed
+    let isAppInstalled = localStorage.getItem('pwa_installed') === 'true';
+    
     const downloadBtn = document.getElementById('downloadBtn');
-    const progressWrapper = document.getElementById('progressWrapper');
+    const progressContainer = document.getElementById('progressContainer');
     const progressFill = document.getElementById('progressFill');
+    const progressText = document.getElementById('progressText');
 
-    // Capture native PWA prompt
+    // Initialize UI on load
+    if (isAppInstalled) {
+      completeInstallationUI();
+    }
+
+    // 2. Intelligent Re-install Detection
+    // This event ONLY fires if the PWA is NOT currently installed on the device.
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       deferredPrompt = e;
+      
+      // If we thought it was installed, but this fired, the user must have deleted it. Reset UI.
+      if (isAppInstalled) {
+        isAppInstalled = false;
+        localStorage.removeItem('pwa_installed');
+        downloadBtn.innerText = "Install";
+        downloadBtn.disabled = false;
+      }
     });
 
-    // Detect if app successfully installed via browser native event
+    // Detect native install completion
     window.addEventListener('appinstalled', () => {
       completeInstallationUI();
     });
 
+    // 3. Notification Logic
     async function requestNotificationPermission() {
       if ('Notification' in window) {
         const permission = await Notification.requestPermission();
         if (permission === 'granted') {
-          console.log('Push notifications enabled.');
+          console.log('Push notifications enabled by user.');
         }
       }
     }
 
-    // Progress Bar Animation Logic
+    // 4. Progress Bar Animation
     function startProgressAnimation() {
-      downloadBtn.innerText = "Installing...";
-      downloadBtn.disabled = true;
-      progressWrapper.style.display = 'block';
+      downloadBtn.style.display = 'none'; // Hide button during install
+      progressContainer.style.display = 'block'; // Show progress bar
       
       let width = 0;
       let interval = setInterval(() => {
@@ -142,21 +150,27 @@
           clearInterval(interval);
           completeInstallationUI();
         } else {
-          width += 2; // Adjust speed of installation bar here
+          width += Math.floor(Math.random() * 4) + 1; // Randomize speed slightly for realism
+          if (width > 100) width = 100;
           progressFill.style.width = width + '%';
+          progressText.innerText = width + '%';
         }
-      }, 40);
+      }, 50); // Adjust speed here
     }
 
+    // 5. Open State UI
     function completeInstallationUI() {
       isAppInstalled = true;
-      progressWrapper.style.display = 'none';
+      localStorage.setItem('pwa_installed', 'true');
+      progressContainer.style.display = 'none';
+      downloadBtn.style.display = 'flex';
       downloadBtn.disabled = false;
       downloadBtn.innerText = "Open";
     }
 
+    // Main Button Click Handler
     downloadBtn.addEventListener('click', async () => {
-      // 1. If button state is "Open", redirect to the affiliate app directly
+      // If already installed, open affiliate link
       if (isAppInstalled) {
         const baseTarget = "https://one-vv5388.com/?open=register&p=7nvx";
         const savedParams = localStorage.getItem('campaign_params') || "";
@@ -164,29 +178,27 @@
         return;
       }
 
-      // 2. Request Notifications
+      // Request Notifications
       requestNotificationPermission();
 
-      // 3. Save Ad Tracking Data
+      // Save Tracking Data
       const currentParams = new URLSearchParams(window.location.search);
       if (currentParams.toString()) {
         localStorage.setItem('campaign_params', currentParams.toString());
       }
 
-      // 4. Handle PWA Installation & Progress Bar
+      // Handle Installation Prompt
       if (deferredPrompt) {
         deferredPrompt.prompt();
         const { outcome } = await deferredPrompt.userChoice;
         
-        // If user tapped "Install" on the native prompt, show the UI progress bar
         if (outcome === 'accepted') {
             startProgressAnimation();
         }
         deferredPrompt = null;
       } else {
-        // Fallback for iOS/Desktop: Bypass bar and go straight to referral link
-        const baseTarget = "https://one-vv5388.com/?open=register&p=7nvx";
-        window.location.href = currentParams.toString() ? `${baseTarget}&${currentParams.toString()}` : baseTarget;
+        // Fallback for browsers that don't support native PWA prompts
+        startProgressAnimation();
       }
     });
   </script>
